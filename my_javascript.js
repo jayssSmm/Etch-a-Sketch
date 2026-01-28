@@ -33,6 +33,13 @@ body.append(btn)
 
 btn.addEventListener('click',()=>{
     let grid=prompt('Number of squares per side for the new grid: ')
+    
+    while (grid<=0 || isNaN(grid)){
+        alert('ERROR')
+        grid=prompt('Number of squares per side for the new grid: ')
+        grid=parseInt(grid)
+    }
+    
     container.innerHTML=''
     for (i=0;i<grid**2;i++){
         createDiv(grid)
