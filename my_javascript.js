@@ -10,16 +10,40 @@ container.style.flexWrap='wrap'
 container.style.border='1px solid black'
 
 function createDiv(grid){
-    div=document.createElement('div')
+    let div=document.createElement('div')
     div.style.border='1px solid black'
     div.style.boxSizing='border-box'
     div.style.height=parseInt(containerSize)/grid+'px'
     div.style.width=parseInt(containerSize)/grid+'px'
     container.append(div)
+    
+    function backgroundColor(){
+        let arr=[]
+        let tenpercent=[]
+        for (let i=0;i<3;i++){
+            let random=Math.floor(Math.random()*256)
+            arr.push(random)
+            tenpercent.push(random*(0.1))
+        }
+        return [arr,tenpercent]
+    }
 
+    function reduceBackgroundColor(arr){
+        for (let i=0;i<3;i++){
+            arr[0][i]=arr[0][i]-arr[1][i]
+        }
+        return arr
+    } 
+
+    let rgb=backgroundColor()
+    let counter=1
     div.addEventListener('mouseenter',(event)=>{
         let target=event.target
-        target.style.backgroundColor='pink'
+        if (counter>1){
+            rgb=reduceBackgroundColor(rgb)
+        }
+        target.style.backgroundColor=`rgb(${rgb[0].join(', ')})`
+        counter+=1
     })
 }
 
@@ -35,7 +59,7 @@ btn.addEventListener('click',()=>{
     let grid=prompt('Number of squares per side for the new grid: ')
     
     while (grid<=0 || isNaN(grid)){
-        alert('ERROR')
+        alert('ERROR, put a postive integer')
         grid=prompt('Number of squares per side for the new grid: ')
         grid=parseInt(grid)
     }
