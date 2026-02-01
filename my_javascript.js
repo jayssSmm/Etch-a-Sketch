@@ -58,14 +58,18 @@ body.append(btn)
 btn.addEventListener('click',()=>{
     let grid=prompt('Number of squares per side for the new grid: ')
     
-    while (grid<=0 || isNaN(grid)){
+    while ((grid<=0 || isNaN(grid)) && (grid!==null) && ( grid!=='')){
         alert('ERROR, put a postive integer')
         grid=prompt('Number of squares per side for the new grid: ')
         grid=parseInt(grid)
     }
     
-    container.innerHTML=''
-    for (i=0;i<grid**2;i++){
-        createDiv(grid)
+    if (grid!==null && grid!==''){
+        /* the initial grid is returned if EMPTY PROMPT('') or CANCEL(NULL)
+        is passed*/
+        container.innerHTML=''
+        for (i=0;i<grid**2;i++){
+            createDiv(grid)
+        }
     }
 })
